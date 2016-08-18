@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: go-api-sokushukai
+    role: web
+  name: go-api-sokushukai
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    name: go-api-sokushukai
+    role: web
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: go-api-sokushukai
+  labels:
+    name: go-api-sokushukai
+    role: web
+spec:
+  containers:
+    - image: quay.io/shimastripe/go-api-sokushukai:latest
+      name: go-api-sokushukai
+      ports:
+        - containerPort: 8080
